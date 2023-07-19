@@ -14,6 +14,9 @@ class ChessboardViewModel @Inject constructor() : ViewModel() {
     private val _chessboard: MutableLiveData<List<List<Piece>>> = MutableLiveData()
     val chessboard: LiveData<List<List<Piece>>> get() = _chessboard
 
+    private val _currentTurn: MutableLiveData<PieceColor> = MutableLiveData(PieceColor.WHITE)
+    val currentTurn: LiveData<PieceColor> get() = _currentTurn
+
     init {
         setupBoard()
     }
@@ -49,5 +52,9 @@ class ChessboardViewModel @Inject constructor() : ViewModel() {
 
         // Set the value of the chessboard LiveData
         _chessboard.value = board
+    }
+
+    fun advanceTurn() {
+        _currentTurn.value = if (_currentTurn.value == PieceColor.WHITE) PieceColor.BLACK else PieceColor.WHITE
     }
 }
